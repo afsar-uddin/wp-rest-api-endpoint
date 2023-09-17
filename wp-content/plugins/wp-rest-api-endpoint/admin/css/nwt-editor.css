@@ -1,0 +1,30 @@
+.elementor-panel #elementor-panel-category-ic_elements .elementor-element .icon,
+.elementor-panel #elementor-panel-category-ic_elements .elementor-element .title{
+    /*color:#29306f;*/
+}
+.elementor-panel #elementor-panel-category-ic_elements .elementor-element:hover .icon,
+.elementor-panel #elementor-panel-category-ic_elements .elementor-element:hover .title,
+.elementor-panel #elementor-panel-category-ic_elements .elementor-element:focus .icon,
+.elementor-panel #elementor-panel-category-ic_elements .elementor-element:focus .title {
+    /*color:#2bc8c7;*/
+}
+
+.elementor-panel #elementor-panel-category-ic_elements .elementor-element .icon {
+    position: relative;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+.elementor-panel .elementor-element .icon .ic:after {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    content: "";
+    background-image: url("../../assets/images/ic-favicon.png");
+    background-repeat: no-repeat;
+    height: 17px;
+    width:17px;
+    /*opacity: .5;*/
+}
+.elementor-panel .elementor-element:hover .icon .ic:after{
+    opacity: 1;
+}

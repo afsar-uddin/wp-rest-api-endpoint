@@ -1,0 +1,48 @@
+#menu-users ul.wp-submenu.wp-submenu-wrap li:last-child, 
+#createuser table tbody tr:nth-child(2), #createuser table tbody tr:nth-child(4), #createuser table tbody tr:nth-child(5), #createuser table tbody tr:nth-child(9), #createuser table tbody tr:nth-child(10),
+#wpfooter,
+.wp-pwd button.button.wp-hide-pw.hide-if-no-js,
+div#pass-strength-result,
+.table-view-list.users #the-list .row-actions>.view,
+#your-profile h2, r.user-rich-editing-wrap, 
+tr.user-syntax-highlighting-wrap, 
+tr.user-admin-color-wrap, 
+tr.user-admin-color-wrap, 
+tr.user-comment-shortcuts-wrap, 
+tr.user-comment-shortcuts-wrap, 
+tr.show-admin-bar.user-admin-bar-front-wrap, 
+tr.user-language-wrap,
+tr.user-display-name-wrap,
+tr.user-nickname-wrap,
+tr.user-url-wrap,
+tr.user-description-wrap,
+tr.user-profile-picture,
+tr.user-sessions-wrap.hide-if-no-js,
+div#application-passwords-section,
+tr.user-rich-editing-wrap,
+tr.user-role-wrap,
+tr.user-last-name-wrap,
+tr.user-generate-reset-link-wrap.hide-if-no-js,
+tr#password,
+tr.user-email-wrap,
+form#createuser h2,
+.row-actions .resetpassword {
+    display: none !important;
+}
+#pass1-text.short, #pass1.short {
+    border-color: #8c8f94;
+}
+.table-view-list.users #the-list .row-actions>.delete {
+    font-size: 0 !important;
+}
+.table-view-list.users #the-list .row-actions>.delete>a{
+    font-size: 12px !important;
+}
+.customer-wrapper img {
+    max-width: 100%;
+    margin-bottom: 30px;
+}
+#your-profile table.form-table tr:first-child span {
+    display: block;
+}
+
