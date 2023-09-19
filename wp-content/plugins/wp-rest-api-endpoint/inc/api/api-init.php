@@ -3,10 +3,17 @@
 
 add_action('rest_api_init', 'nwt_rest_api_init');
 function nwt_rest_api_init() {
-    // notions list
+    // notions post list
     register_rest_route('nwt/api/v1', '/notions', array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => 'nwt_notion_rest_api',
+        'permission_callback' => '__return_true'
+    ));
+
+    // notion product detail rout
+    register_rest_route('nwt/api/v1', '/notion-detail', array(
+        'methods' => WP_REST_Server::READABLE,
+        'callback' => 'nwt_notion_detail_rest_api',
         'permission_callback' => '__return_true'
     ));
 
@@ -37,20 +44,14 @@ function nwt_notion_rest_api($id) {
     if(isset($id['category_id'])) {
         $args_notion_query['tax_query'] = [
             [
-
                 'taxonomy'  => $taxonomy,
-
                 'field'     => 'term_id',
-
                 'terms'     => $id['category_id']
-
             ]
         ];
     }
 
-    
     $notion_query = new WP_Query($args_notion_query);
-    
     
     if ($notion_query->have_posts()) {
         $counter = 0;
@@ -72,6 +73,9 @@ function nwt_notion_rest_api($id) {
             
             $notion_categories = wp_get_post_terms(get_the_ID(), 'notion_cat');
             $category_names = array();
+            $notion_detail_post_url = get_permalink(get_the_ID());
+
+            // ic_var_dump($notion_detail_post_url);
         
             foreach ($notion_categories as $category) {
                 $category_names[] = $category->name;
@@ -82,6 +86,7 @@ function nwt_notion_rest_api($id) {
                 'notion_id' => get_the_ID(),
                 'notion_imageURL' => has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'full') : '',
                 'notion_cat' => $category_names,
+                'notion_detail_link' => $notion_detail_post_url
             );
 
             $counter++;
@@ -97,7 +102,10 @@ function nwt_notion_rest_api($id) {
     }
 }
 
-// notions categories
+// callback notion detail 
+
+
+// callback notions categories
 function nwt_notion_cat_rest_api() {
     $taxonomy = 'notion_cat';
 
@@ -118,8 +126,9 @@ function nwt_notion_cat_rest_api() {
 
             $notion_cat_thumb_id = get_term_meta($cat_item->term_id, 'cat_thumbnail', true);
             $notion_cat_thumb_id_url = $notion_cat_thumb_id ? wp_get_attachment_image_url($notion_cat_thumb_id, 'full') : '';
+            $term_link = get_term_link($cat_item->term_id, $taxonomy);
 
-            // ic_var_dump($cat_item);
+            // ic_var_dump($term_link);
 
             // get_term_description($cat_item->term_id, $taxonomy);
 
@@ -129,6 +138,7 @@ function nwt_notion_cat_rest_api() {
                 'cat_slug' => $cat_item->slug,
                 'cat_description' => $cat_item->description,
                 'cat_thumb' => $notion_cat_thumb_id_url,
+                'cat_link' => $term_link
             ];
             $counter++;           
         endforeach;
