@@ -11,7 +11,7 @@ function nwt_rest_api_init() {
     ));
 
     // notion product detail rout
-    register_rest_route('nwt/api/v1', '/notion-detail', array(
+    register_rest_route('nwt/api/v1', '/notion/(?P<id>\d+)', array(
         'methods' => WP_REST_Server::READABLE,
         'callback' => 'nwt_notion_detail_rest_api',
         'permission_callback' => '__return_true'
@@ -103,7 +103,35 @@ function nwt_notion_rest_api($id) {
 }
 
 // callback notion detail 
+function nwt_notion_detail_rest_api($request) {
+    $notion_detail = [];
 
+    $params = $request->get_params();
+    $notion_id = $params['id'];
+    $notion_post = get_post($notion_id);
+
+    if(empty($notion_post)) {
+        return new WP_Error( 'notion_not_found', 'Notion post not found', array( 'status' => 404 ) );
+    }
+
+    $featured_image_url = get_the_post_thumbnail_url( $notion_post, 'full' ); 
+
+
+    $notion_detail = array(
+        'notion_id' => $notion_post->ID,
+        'notion_title' => $notion_post->post_title,
+        'notion_content' => $notion_post->post_content,
+        'notion_img_url' => $featured_image_url,
+    );
+
+    return rest_ensure_response($notion_detail);
+
+
+    // ic_var_dump($notion_post);
+
+   
+
+}
 
 // callback notions categories
 function nwt_notion_cat_rest_api() {
